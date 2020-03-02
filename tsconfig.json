@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "declarationDir": "types",
+    "declaration": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "esModuleInterop": true,
+    "target": "es2017",
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ]
+}
