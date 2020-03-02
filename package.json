@@ -1,10 +1,10 @@
 {
-  "name": "admin-bro-firebase-function",
+  "name": "admin-bro-firebase-functions",
   "version": "2.0.0",
   "description": "Firebase plugin for AdminBro",
   "main": "index.js",
   "types": "index.d.ts",
-  "repository": "git@github.com:SoftwareBrothers/admin-bro-firebase-function.git",
+  "repository": "git@github.com:SoftwareBrothers/admin-bro-firebase-functions.git",
   "author": "Wojciech Krysiak <wojciech.g.krysiak@gmail.com>",
   "license": "MIT",
   "scripts": {
