@@ -5,7 +5,9 @@ node_js:
 - '10'
 script:
 - yarn run lint
+- yarn run build
 deploy:
+  skip_cleanup: true
   provider: npm
   # tag: beta
   email: wojciech.g.krysiak@gmail.com
