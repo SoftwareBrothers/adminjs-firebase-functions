@@ -4,6 +4,7 @@ env:
 node_js:
 - '10'
 script:
+- yarn
 - yarn run build
 - yarn run lint
 deploy:
