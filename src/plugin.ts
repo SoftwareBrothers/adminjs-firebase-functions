@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Response } from 'firebase-functions';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Request } from 'firebase-functions/lib/providers/https';
 import AdminBro, { AdminBroOptions, CurrentAdmin } from 'admin-bro';
 import { resolve } from 'path';

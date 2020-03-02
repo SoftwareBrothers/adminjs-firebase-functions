@@ -4,9 +4,8 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    'airbnb',
+    'airbnb-base',
   ],
   globals: {
     Atomics: 'readonly',
@@ -21,27 +20,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'react',
     '@typescript-eslint',
-  ],
-  overrides: [
-    {
-      files: ['*.tsx'],
-      rules: {
-        "react/prop-types": 'off',
-        "react/jsx-filename-extension": 'off',
-      },
-      settings: {
-        "import/core-modules": [
-          "react",
-          "react-router-dom",
-          "prop-types",
-          "styled-components",
-          "react-select",
-          "flat"
-        ]
-      }
-    }
   ],
   rules: {
     "import/no-unresolved": 'off',

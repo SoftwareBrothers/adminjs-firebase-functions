@@ -2,6 +2,7 @@ import Busboy from 'busboy';
 import os from 'os';
 import fs from 'fs';
 import path from 'path';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Request } from 'firebase-functions/lib/providers/https';
 
 export type ParseFilesResponse = {
