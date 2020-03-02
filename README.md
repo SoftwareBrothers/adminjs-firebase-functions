@@ -12,7 +12,7 @@ Or visit [AdminBro](https://github.com/SoftwareBrothers/admin-bro) github page.
 
 ## Usage
 
-To see example usage visit the [Express section under AdminBro project page](https://softwarebrothers.github.io/admin-bro-dev/module-admin-bro-firebase-functions.html)
+To see example usage visit the [firebase functions section under AdminBro project page](https://softwarebrothers.github.io/admin-bro-dev/module-admin-bro-firebase-functions.html)
 
 ## License
 
