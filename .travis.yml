@@ -4,8 +4,8 @@ env:
 node_js:
 - '10'
 script:
-- yarn run lint
 - yarn run build
+- yarn run lint
 deploy:
   skip_cleanup: true
   provider: npm
