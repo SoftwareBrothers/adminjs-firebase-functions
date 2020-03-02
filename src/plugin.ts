@@ -11,20 +11,68 @@ import jwt from 'jsonwebtoken';
 import { AppRoutes, AppAssets } from './routes';
 import { parseFiles, cleanFiles } from './parse-files';
 
-export type ReturnType = ((req: Request, resp: Response) => Promise<void>)
+/**
+ * @alias BuildHandlerReturn
+ *
+ * @memberof module:admin-bro-firebase-functions
+ */
+export type BuildHandlerReturn = ((req: Request, resp: Response) => Promise<void>)
 
-export type OptionsType = {
+/**
+ * @alias BuildHandlerOptions
+ *
+ * @memberof module:admin-bro-firebase-functions
+ */
+export type BuildHandlerOptions = {
+  /** Region where function is deployed */
   region: string;
+  /** Optional before `async` hook which can be used to initialize database */
   before?: () => Promise<any>;
+  /** 
+   * custom authentication options
+   */
   auth?: {
+    /** 
+     * secret which is used to encrypt the session cookie
+     */
     secret: string;
+    /** 
+     * authenticate function
+     */
     authenticate: (
       email: string,
       password: string) => Promise<CurrentAdmin | null> | CurrentAdmin | null;
   };
 }
 
-export const buildHandler = (adminOptions: AdminBroOptions, options: OptionsType): ReturnType => {
+/**
+ * Builds the handler which can be passed to firebase functions
+ * 
+ * usage:
+ * 
+ * ```javascript
+ * const functions = require('firebase-functions')
+ * const { buildHandler } = require('admin-bro')
+ * 
+ * const adminOptions = {...}
+ * const region = '...'
+ * 
+ * exports.app = functions.https.onRequest(buildHandler(adminOptions, { region }));
+ * 
+ * ```
+ *
+ * @alias buildHandler
+ * @param  {AdminBroOptions} adminOptions       options which are used to initialize
+ *                                              AdminBro instance
+ * @param  {BuildHandlerOptions} options        custom options for admin-bro-firebase-functions adapter
+ * @return {BuildHandlerReturn}                 function which can be passed to firebase
+ * @function
+ * @memberof module:admin-bro-firebase-functions
+*/
+export const buildHandler = (
+  adminOptions: AdminBroOptions, 
+  options: BuildHandlerOptions
+): BuildHandlerReturn => {
   let admin: AdminBro;
 
   let rootPath: string;
