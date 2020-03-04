@@ -10,7 +10,7 @@ script:
 deploy:
   skip_cleanup: true
   provider: npm
-  tag: beta
+  # tag: beta
   email: wojciech.g.krysiak@gmail.com
   api_key:
     secure: oXX0r6Ua9Oal0ESZVzYL6xtjHJ31grqdGD4Ejx6/ci14qoCYO6+LgtYPC45rKXlj6FVq0IOSJOvXUCe5xZ/JbrKXsMRa50cX+psbN2/0IdjhykuXHT69ZWrxDfwmkiRp0I/IBBQtJP6mXu4zFbarU+uwFYZv1LzgepNtrSR3PpprHzEsFVBFSu8nCMx+8YnSkYQGBwc1lR73PUBiVz8ayS0JPetuAGQX4eO/5Hgao5H8Zy+20rV5gNyBV/2Ibj0IOZY19x8bmjb/nYayA/v75l6wWU734RAskV9nr/ePUoG9K0Ds6p6Wj68AJIS026aNyeutfxX+cbxm2JWEoUvPjWF143JkXtRpRcnzAr8gSIpv2XlfLCz9c4Ip3NB8Xa0FNt9VZ+07/MywsG7CZFFuC03lxttKcEYCckwM1cX+5ifmSGDgY/duX2IxX7KuQY6jankgc2T9o4xz2OgBHPoManRkDA8GEQtQZpU7VG3M6IbFEw908NpiPDGHD908w18T160vtrNC7FckM0o8FuowXGLP/UMd3cBXgoYTK+IdJerT1B+5Fxvy1nBVEWwoeoFNkE7Aa+8vwhcrKG4Nu1yHpAPHIdtlZwqANmxAxyk/Rn1EEpshaT+5qfH4O6cFs4PoygVNg+pUAdIgKY5zxn2YnhSLawo1zmGr9kdB3TRhHvM=
