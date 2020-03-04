@@ -28,15 +28,15 @@ export type BuildHandlerOptions = {
   region: string;
   /** Optional before `async` hook which can be used to initialize database */
   before?: () => Promise<any>;
-  /** 
+  /**
    * custom authentication options
    */
   auth?: {
-    /** 
+    /**
      * secret which is used to encrypt the session cookie
      */
     secret: string;
-    /** 
+    /**
      * authenticate function
      */
     authenticate: (
@@ -47,31 +47,32 @@ export type BuildHandlerOptions = {
 
 /**
  * Builds the handler which can be passed to firebase functions
- * 
+ *
  * usage:
- * 
+ *
  * ```javascript
  * const functions = require('firebase-functions')
  * const { buildHandler } = require('admin-bro')
- * 
+ *
  * const adminOptions = {...}
  * const region = '...'
- * 
+ *
  * exports.app = functions.https.onRequest(buildHandler(adminOptions, { region }));
- * 
+ *
  * ```
  *
  * @alias buildHandler
  * @param  {AdminBroOptions} adminOptions       options which are used to initialize
  *                                              AdminBro instance
- * @param  {BuildHandlerOptions} options        custom options for admin-bro-firebase-functions adapter
+ * @param  {BuildHandlerOptions} options        custom options for admin-bro-firebase-functions
+ *                                              adapter
  * @return {BuildHandlerReturn}                 function which can be passed to firebase
  * @function
  * @memberof module:admin-bro-firebase-functions
 */
 export const buildHandler = (
-  adminOptions: AdminBroOptions, 
-  options: BuildHandlerOptions
+  adminOptions: AdminBroOptions,
+  options: BuildHandlerOptions,
 ): BuildHandlerReturn => {
   let admin: AdminBro;
 
