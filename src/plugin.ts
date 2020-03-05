@@ -89,7 +89,7 @@ export const buildHandler = (
 
   return async (req, res): Promise<void> => {
     if (!admin) {
-      let beforeResult = null
+      let beforeResult = null;
       if (options.before) {
         beforeResult = await options.before();
       }
