@@ -5,8 +5,16 @@ import path from 'path';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request } from 'firebase-functions/lib/providers/https';
 
+export type File = {
+  path: string;
+  type: string;
+  name: string;
+  encoding: string;
+  file: NodeJS.ReadableStream;
+}
+
 export type ParseFilesResponse = {
-  files: Record<string, string>;
+  files: Record<string, File>;
   fields: Record<string, string>;
 }
 
@@ -23,7 +31,7 @@ export const parseFiles = (req: Request): Promise<ParseFilesResponse> => {
     const fields = {};
 
     // This object will accumulate all the uploaded files, keyed by their name.
-    const files = {};
+    const files: Record<string, File> = {};
 
     // This code will process each non-file field in the form.
     busboy.on('field', (fieldName, val) => {
@@ -34,11 +42,17 @@ export const parseFiles = (req: Request): Promise<ParseFilesResponse> => {
     const fileWrites: Array<Promise<any>> = [];
 
     // This code will process each file uploaded.
-    busboy.on('file', (fieldName, file, filename) => {
+    busboy.on('file', (fieldName, file, filename, encoding, mime) => {
       // Note: os.tmpdir() points to an in-memory file system on GCF
       // Thus, any files in it must fit in the instance's memory.
       const filePath = path.join(tmpdir, filename);
-      files[fieldName] = filePath;
+      files[fieldName] = {
+        path: filePath,
+        type: mime,
+        encoding,
+        name: filename,
+        file,
+      };
 
       const writeStream = fs.createWriteStream(filePath);
       file.pipe(writeStream);
