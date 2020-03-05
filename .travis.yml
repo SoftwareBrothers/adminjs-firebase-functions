@@ -5,7 +5,7 @@ node_js:
 - '10'
 script:
 - yarn
-- yarn global add admin-bro
+- yarn add admin-bro
 - yarn run build
 - yarn run lint
 deploy:
