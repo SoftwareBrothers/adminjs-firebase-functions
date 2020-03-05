@@ -104,7 +104,7 @@ export const buildHandler = (
 
     const { method, query } = req;
     const path = req.path.replace(rootPath, '');
-    const cookies = cookie.parse(req.headers.cookie);
+    const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies && cookies.__session;
 
     const currentAdmin = options.auth && token && token !== ''
