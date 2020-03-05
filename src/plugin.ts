@@ -26,8 +26,11 @@ export type BuildHandlerReturn = ((req: Request, resp: Response) => Promise<void
 export type BuildHandlerOptions = {
   /** Region where function is deployed */
   region: string;
-  /** Optional before `async` hook which can be used to initialize database */
-  before?: () => Promise<any>;
+  /**
+   * Optional before `async` hook which can be used to initialize database.
+   * if it returns something it will replace AdminBroOptions passed in first argument.
+   */
+  before?: () => Promise<AdminBroOptions | undefined | null> | AdminBroOptions | undefined | null;
   /**
    * custom authentication options
    */
@@ -86,11 +89,12 @@ export const buildHandler = (
 
   return async (req, res): Promise<void> => {
     if (!admin) {
+      let beforeResult = null
       if (options.before) {
-        await options.before();
+        beforeResult = await options.before();
       }
 
-      admin = new AdminBro(adminOptions);
+      admin = new AdminBro(beforeResult || adminOptions);
       ({ rootPath, loginPath, logoutPath } = admin.options);
 
       admin.options.rootPath = `/${domain}${rootPath}`;
