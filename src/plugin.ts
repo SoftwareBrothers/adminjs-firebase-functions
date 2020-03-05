@@ -182,7 +182,7 @@ export const buildHandler = (
 
     const asset = AppAssets.find((r) => r.match(path));
     if (asset) {
-      res.sendFile(resolve(asset.src));
+      res.status(200).sendFile(resolve(asset.src));
       return;
     }
 
