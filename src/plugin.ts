@@ -28,11 +28,11 @@ export type BuildHandlerOptions = {
   region: string;
   /**
    * Optional before `async` hook which can be used to initialize database.
-   * if it returns something it will replace AdminBroOptions passed in first argument.
+   * if it returns something it will be used as AdminBroOptions.
    */
   before?: () => Promise<AdminBroOptions | undefined | null> | AdminBroOptions | undefined | null;
   /**
-   * custom authentication options
+   * custom authentication option. If given AdminBro will render login page
    */
   auth?: {
     /**
