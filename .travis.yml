@@ -8,6 +8,7 @@ script:
 - yarn add admin-bro@2.0.1
 - yarn run build
 - yarn run lint
+- yarn run test
 deploy:
   skip_cleanup: true
   provider: npm
