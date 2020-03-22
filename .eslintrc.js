@@ -2,10 +2,12 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    mocha: true,
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
     'airbnb-base',
+    'plugin:mocha/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -28,4 +30,17 @@ module.exports = {
     "import/prefer-default-export": 'off',
     "no-underscore-dangle": 'off',
   },
+  overrides: [
+    {
+      files: [
+          '*.spec.ts',
+      ],
+      rules: {
+        'no-unused-expressions': 'off',
+        'func-names': 'off',
+        'prefer-arrow-callback': 'off',
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+  ],
 };

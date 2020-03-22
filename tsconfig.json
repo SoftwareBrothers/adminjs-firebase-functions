@@ -9,6 +9,7 @@
     "declaration": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
+    "removeComments": true,
     "outDir": "lib",
     "esModuleInterop": true,
     "target": "es2017",
