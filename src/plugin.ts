@@ -9,7 +9,7 @@ import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 
 import { AppRoutes, AppAssets } from './routes';
-import { parseFiles, cleanFiles } from './parse-files';
+import { parseFiles, cleanFiles, File } from './parse-files';
 
 /**
  * @alias BuildHandlerReturn
@@ -44,9 +44,19 @@ export type BuildHandlerOptions = {
      */
     authenticate: (
       email: string,
-      password: string) => Promise<CurrentAdmin | null> | CurrentAdmin | null;
+      password: string
+    ) => Promise<CurrentAdmin | null> | CurrentAdmin | null;
+
+    /**
+     * For how long cookie session will be stored.
+     * Default to 900000 (15 minutes).
+     * In milliseconds.
+     */
+    maxAge?: number;
   };
 }
+
+const DEFAULT_MAX_AGE = 900000;
 
 /**
  * Builds the handler which can be passed to firebase functions
@@ -124,7 +134,9 @@ export const buildHandler = (
           const user = await options.auth.authenticate(email, password);
           if (user) {
             const session = jwt.sign(user, options.auth.secret);
-            res.cookie('__session', session, { maxAge: 900000 });
+            res.cookie('__session', session, {
+              maxAge: options.auth.maxAge || DEFAULT_MAX_AGE,
+            });
             res.redirect(admin.options.rootPath);
           } else {
             res.send(await admin.renderLogin({
@@ -138,7 +150,7 @@ export const buildHandler = (
 
       const matchLogout = match(logoutPath);
       if (matchLogout(req.path)) {
-        res.cookie('__session', '', { maxAge: 900000 });
+        res.cookie('__session', '');
         res.redirect(admin.options.loginPath);
         return;
       }
@@ -147,6 +159,10 @@ export const buildHandler = (
         res.redirect(admin.options.loginPath);
         return;
       }
+
+      res.cookie('__session', token, {
+        maxAge: options.auth.maxAge || DEFAULT_MAX_AGE,
+      });
     }
 
     const route = AppRoutes.find((r) => r.match(path) && r.method === method);
@@ -154,8 +170,8 @@ export const buildHandler = (
       const params = (route.match(path) as unknown as any).params as Record<string, string>;
 
       const controller = new route.Controller({ admin }, currentAdmin);
-      let fields = {};
-      let files = {};
+      let fields: Record<string, string> = {};
+      let files: Record<string, File> = {};
       if (method === 'POST') {
         ({ fields, files } = await parseFiles(req));
       }
