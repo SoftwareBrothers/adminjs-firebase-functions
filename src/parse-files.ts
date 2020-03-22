@@ -81,8 +81,15 @@ export const parseFiles = (req: Request): Promise<ParseFilesResponse> => {
   });
 };
 
-export const cleanFiles = (files: Record<string, string>): void => {
-  Object.values(files).forEach((filePath: string) => {
-    fs.unlinkSync(filePath);
+export const cleanFiles = (files: Record<string, File>): void => {
+  Object.values(files).forEach((file: File) => {
+    try {
+      fs.unlinkSync(file.path);
+    } catch (error) {
+      // catching errors when file doesn't exists
+      if (error.code !== 'ENOENT') {
+        throw error;
+      }
+    }
   });
 };
