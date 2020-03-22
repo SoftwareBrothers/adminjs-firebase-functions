@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-* refresh session expresAt at every request
+* refresh session expiresAt at every request
 
 ### Added
 
