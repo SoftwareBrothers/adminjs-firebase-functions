@@ -14,6 +14,11 @@ Or visit [AdminBro](https://github.com/SoftwareBrothers/admin-bro) github page.
 
 To see example usage visit the [firebase functions section under AdminBro project page](https://softwarebrothers.github.io/admin-bro-dev/module-admin-bro-firebase-functions.html)
 
+## OpenSource SoftwareBrothers community
+
+- [Join the community](https://join.slack.com/t/adminbro/shared_invite/zt-czfb79t1-0U7pn_KCqd5Ts~lbJK0_RA) to get help and be inspired.
+- subscribe to our [newsletter](https://www.getrevue.co/profile/adminbro)
+
 ## License
 
 AdminBro is Copyright © 2020 SoftwareBrothers.co. It is free software and may be redistributed under the terms specified in the [LICENSE](LICENSE) file.
@@ -25,5 +30,5 @@ AdminBro is Copyright © 2020 SoftwareBrothers.co. It is free software and may b
 
 We’re an open, friendly team that helps clients from all over the world to transform their businesses and create astonishing products.
 
-* We are available to [hire](https://softwarebrothers.co/contact).
+* We are available for [hire](https://softwarebrothers.co/contact).
 * If you want to work for us - check out the [career page](https://softwarebrothers.co/career).
