@@ -19,7 +19,7 @@
  * ```sh
  * cd functions
  * // you might need to change version of node to 10 in your package.json
- * yarn add admin-bro admin-bro-firebase-functions
+ * yarn add @admin-bro/core @admin-bro/firebase-functions
  * ```
  *
  * ## Usage on emulator
@@ -28,7 +28,7 @@
  *
  * ```
  * const functions = require('firebase-functions')
- * const { buildHandler } = require('admin-bro-firebase-functions')
+ * const { buildHandler } = require('@admin-bro/firebase-functions')
  *
  * // assume that you kep all you AdminBroOptions in this file
  * const adminBroOptions = require('./admin/config')
@@ -61,7 +61,7 @@
  * ## Deploy script
  *
  * AdminBro bundles custom components to `./.adminbro` folder. In other plugins
- * (admin-bro-expressjs, admin-bro-hapijs) this is done on the server side.
+ * (@admin-bro/express, @admin-bro/hapi) this is done on the server side.
  * On firebase we cannot write files in project directory so we have to bundle
  * files manually before the deployment.
  *
@@ -69,7 +69,7 @@
  *
  * ```
  * // ./bin/bundle.js
- * const AdminBro = require('admin-bro');
+ * const AdminBro = require('@admin-bro/core');
  *
  * // assume that you keep all your AdminBroOptions in this file
  * const adminBroOptions = require('../admin/config')
@@ -122,19 +122,23 @@
  *
  * This is how updated ./bin/bundle.js could look like:
  * ```
- * const AdminBro = require('admin-bro');
+ * const AdminBro = require('@admin-bro/core');
  *
  * // assume that you keep all your AdminBroOptions in this file
  * const adminBroOptions = require('../admin/config')
  *
  * const admin = new AdminBro(adminBroOptions);
  * fs.copyFile(
- *   './node_modules/admin-bro/lib/frontend/assets/scripts/app-bundle.production.js',
+ *   './node_modules/@admin-bro/core/lib/frontend/assets/scripts/app-bundle.production.js',
  *   './public/app.bundle.js',
  * );
  * fs.copyFile(
- *   './node_modules/admin-bro/lib/frontend/assets/scripts/global-bundle.production.js',
+ *   './node_modules/@admin-bro/core/lib/frontend/assets/scripts/global-bundle.production.js',
  *   './public/global.bundle.js',
+ * );
+ * fs.copyFile(
+ *   './node_modules/@admin-bro/design-system/bundle.production.js',
+ *   './public/design-system.bundle.js',
  * );
  * admin.initialize().then(() => {
  *   fs.rename('./.adminbro/bundle.js', './public/components.bundle.js');

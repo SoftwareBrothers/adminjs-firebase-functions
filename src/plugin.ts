@@ -2,7 +2,7 @@
 import { Response } from 'firebase-functions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request } from 'firebase-functions/lib/providers/https';
-import AdminBro, { AdminBroOptions, CurrentAdmin } from 'admin-bro';
+import AdminBro, { AdminBroOptions, CurrentAdmin } from '@admin-bro/core';
 import { resolve } from 'path';
 import { match } from 'path-to-regexp';
 import cookie from 'cookie';
@@ -65,7 +65,7 @@ const DEFAULT_MAX_AGE = 900000;
  *
  * ```javascript
  * const functions = require('firebase-functions')
- * const { buildHandler } = require('admin-bro')
+ * const { buildHandler } = require('@admin-bro/core')
  *
  * const adminOptions = {...}
  * const region = '...'
@@ -77,7 +77,7 @@ const DEFAULT_MAX_AGE = 900000;
  * @alias buildHandler
  * @param  {AdminBroOptions} adminOptions       options which are used to initialize
  *                                              AdminBro instance
- * @param  {BuildHandlerOptions} options        custom options for admin-bro-firebase-functions
+ * @param  {BuildHandlerOptions} options        custom options for @admin-bro/firebase-functions
  *                                              adapter
  * @return {BuildHandlerReturn}                 function which can be passed to firebase
  * @function
