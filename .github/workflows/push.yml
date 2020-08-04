@@ -51,7 +51,26 @@ jobs:
         run: yarn lint
       - name: Lint
         run: yarn test
- 
+
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    if: failure()
+    needs:
+      - test
+      - setup
+      - publish
+    steps:
+      - uses: technote-space/workflow-conclusion-action@v1
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ env.WORKFLOW_CONCLUSION }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow # selectable (default: repo,message)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        if: always()
+
   publish:
     name: Publish
     needs: test
@@ -77,4 +96,5 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         run: yarn release
