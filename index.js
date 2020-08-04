@@ -1,5 +1,5 @@
 /**
- * @module admin-bro-firebase-functions
+ * @module @admin-bro/firebase-functions
  *
  * @description
  * Plugin that allows you to render AdminBro by Firebase Cloud Functions
@@ -69,7 +69,7 @@
  *
  * ```
  * // ./bin/bundle.js
- * const AdminBro = require('@admin-bro/core');
+ * const AdminBro = require('admin-bro');
  *
  * // assume that you keep all your AdminBroOptions in this file
  * const adminBroOptions = require('../admin/config')
@@ -103,13 +103,14 @@
  *
  * ## Do this even better.
  *
- * AdminBro serves 3 assets:
+ * AdminBro serves 4 assets:
  * - global.bundle.js which contains react, readux, axios etc.
- * - app.bundle.js where entire AdminBro frontend resides
+ * - design-system.bundle.js with AdminBro Design System
+ * - app.bundle.js where entire AdminBro frontend application resides
  * - components.bundle.js - this is the place for bundled (with {@link AdminBro.bundle})
  * custom components (admin.initialize(); creates it in `./adminbro/bundle.js`)
  *
- * So it means that your function will have to serve these 3 assets every time user
+ * So it means that your function will have to serve these 4 assets every time user
  * opens page with web browser.
  *
  * You can change that by setting {@link AdminBroOptions.assetsCDN}. So before the deployment
@@ -122,7 +123,7 @@
  *
  * This is how updated ./bin/bundle.js could look like:
  * ```
- * const AdminBro = require('@admin-bro/core');
+ * const AdminBro = require('admin-bro');
  *
  * // assume that you keep all your AdminBroOptions in this file
  * const adminBroOptions = require('../admin/config')

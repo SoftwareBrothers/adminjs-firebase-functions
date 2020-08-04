@@ -1,4 +1,4 @@
-import AdminBro from '@admin-bro/core';
+import AdminBro from 'admin-bro';
 import { match } from 'path-to-regexp';
 
 const { routes, assets } = AdminBro.Router;

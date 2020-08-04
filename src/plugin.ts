@@ -2,7 +2,7 @@
 import { Response } from 'firebase-functions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request } from 'firebase-functions/lib/providers/https';
-import AdminBro, { AdminBroOptions, CurrentAdmin } from '@admin-bro/core';
+import AdminBro, { AdminBroOptions, CurrentAdmin } from 'admin-bro';
 import { resolve } from 'path';
 import { match } from 'path-to-regexp';
 import cookie from 'cookie';
@@ -14,14 +14,14 @@ import { parseFiles, cleanFiles, File } from './parse-files';
 /**
  * @alias BuildHandlerReturn
  *
- * @memberof module:admin-bro-firebase-functions
+ * @memberof module:@admin-bro/firebase-functions
  */
 export type BuildHandlerReturn = ((req: Request, resp: Response) => Promise<void>)
 
 /**
  * @alias BuildHandlerOptions
  *
- * @memberof module:admin-bro-firebase-functions
+ * @memberof module:@admin-bro/firebase-functions
  */
 export type BuildHandlerOptions = {
   /** Region where function is deployed */
@@ -65,7 +65,7 @@ const DEFAULT_MAX_AGE = 900000;
  *
  * ```javascript
  * const functions = require('firebase-functions')
- * const { buildHandler } = require('@admin-bro/core')
+ * const { buildHandler } = require('@admin-bro/firebase-functions')
  *
  * const adminOptions = {...}
  * const region = '...'
@@ -81,7 +81,7 @@ const DEFAULT_MAX_AGE = 900000;
  *                                              adapter
  * @return {BuildHandlerReturn}                 function which can be passed to firebase
  * @function
- * @memberof module:admin-bro-firebase-functions
+ * @memberof module:@admin-bro/firebase-functions
 */
 export const buildHandler = (
   adminOptions: AdminBroOptions,
