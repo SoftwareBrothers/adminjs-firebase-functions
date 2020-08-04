@@ -19,7 +19,7 @@
  * ```sh
  * cd functions
  * // you might need to change version of node to 10 in your package.json
- * yarn add @admin-bro/core @admin-bro/firebase-functions
+ * yarn add admin-bro @admin-bro/firebase-functions
  * ```
  *
  * ## Usage on emulator
@@ -130,11 +130,11 @@
  *
  * const admin = new AdminBro(adminBroOptions);
  * fs.copyFile(
- *   './node_modules/@admin-bro/core/lib/frontend/assets/scripts/app-bundle.production.js',
+ *   './node_modules/admin-bro/lib/frontend/assets/scripts/app-bundle.production.js',
  *   './public/app.bundle.js',
  * );
  * fs.copyFile(
- *   './node_modules/@admin-bro/core/lib/frontend/assets/scripts/global-bundle.production.js',
+ *   './node_modules/admin-bro/lib/frontend/assets/scripts/global-bundle.production.js',
  *   './public/global.bundle.js',
  * );
  * fs.copyFile(
