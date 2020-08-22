@@ -1,5 +1,5 @@
 /**
- * @module admin-bro-firebase-functions
+ * @module @admin-bro/firebase-functions
  *
  * @description
  * Plugin that allows you to render AdminBro by Firebase Cloud Functions
@@ -19,7 +19,7 @@
  * ```sh
  * cd functions
  * // you might need to change version of node to 10 in your package.json
- * yarn add admin-bro admin-bro-firebase-functions
+ * yarn add admin-bro @admin-bro/firebase-functions
  * ```
  *
  * ## Usage on emulator
@@ -28,7 +28,7 @@
  *
  * ```
  * const functions = require('firebase-functions')
- * const { buildHandler } = require('admin-bro-firebase-functions')
+ * const { buildHandler } = require('@admin-bro/firebase-functions')
  *
  * // assume that you kep all you AdminBroOptions in this file
  * const adminBroOptions = require('./admin/config')
@@ -61,7 +61,7 @@
  * ## Deploy script
  *
  * AdminBro bundles custom components to `./.adminbro` folder. In other plugins
- * (admin-bro-expressjs, admin-bro-hapijs) this is done on the server side.
+ * (@admin-bro/express, @admin-bro/hapi) this is done on the server side.
  * On firebase we cannot write files in project directory so we have to bundle
  * files manually before the deployment.
  *
@@ -103,13 +103,14 @@
  *
  * ## Do this even better.
  *
- * AdminBro serves 3 assets:
+ * AdminBro serves 4 assets:
  * - global.bundle.js which contains react, readux, axios etc.
- * - app.bundle.js where entire AdminBro frontend resides
+ * - design-system.bundle.js with AdminBro Design System
+ * - app.bundle.js where entire AdminBro frontend application resides
  * - components.bundle.js - this is the place for bundled (with {@link AdminBro.bundle})
  * custom components (admin.initialize(); creates it in `./adminbro/bundle.js`)
  *
- * So it means that your function will have to serve these 3 assets every time user
+ * So it means that your function will have to serve these 4 assets every time user
  * opens page with web browser.
  *
  * You can change that by setting {@link AdminBroOptions.assetsCDN}. So before the deployment
@@ -135,6 +136,10 @@
  * fs.copyFile(
  *   './node_modules/admin-bro/lib/frontend/assets/scripts/global-bundle.production.js',
  *   './public/global.bundle.js',
+ * );
+ * fs.copyFile(
+ *   './node_modules/@admin-bro/design-system/bundle.production.js',
+ *   './public/design-system.bundle.js',
  * );
  * admin.initialize().then(() => {
  *   fs.rename('./.adminbro/bundle.js', './public/components.bundle.js');
