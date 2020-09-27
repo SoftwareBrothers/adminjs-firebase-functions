@@ -1,6 +1,6 @@
 {
   "name": "@admin-bro/firebase-functions",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Firebase plugin for AdminBro",
   "main": "index.js",
   "types": "index.d.ts",
