@@ -1,7 +1,9 @@
 /**
  * @module @admin-bro/firebase-functions
+ * @subcategory Plugins
+ * @section modules
  *
- * @description
+ * @classdesc
  * Plugin that allows you to render AdminBro by Firebase Cloud Functions
  *
  * ## Installation
