@@ -113,7 +113,9 @@ export const buildHandler = (
     }
 
     const { method, query } = req;
-    const path = req.path.replace(rootPath, '');
+    let path = req.originalUrl.replace(admin.options.rootPath, '');
+    if (!path.startsWith('/')) { path = `/${path}`; }
+    
     const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies && cookies.__session;
 
