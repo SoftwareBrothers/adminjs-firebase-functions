@@ -7,9 +7,12 @@ import { resolve } from 'path';
 import { match } from 'path-to-regexp';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
+import { computeRootPaths } from './utils/compute-root-paths';
+import { prepareComparePath } from './utils/prepare-compare-path';
 
-import { AppRoutes, AppAssets } from './routes';
-import { parseFiles, cleanFiles, File } from './parse-files';
+
+import { AppRoutes, AppAssets } from './utils/routes';
+import { parseFiles, cleanFiles, File } from './utils/parse-files';
 
 /**
  * @alias BuildHandlerReturn
@@ -79,6 +82,8 @@ const DEFAULT_MAX_AGE = 900000;
  *                                              AdminBro instance
  * @param  {BuildHandlerOptions} options        custom options for @admin-bro/firebase-functions
  *                                              adapter
+ * @param {string} customFunctionPath           "adjustment" path when you proxy domain to a created
+ *                                              function
  * @return {BuildHandlerReturn}                 function which can be passed to firebase
  * @function
  * @memberof module:@admin-bro/firebase-functions
@@ -86,16 +91,13 @@ const DEFAULT_MAX_AGE = 900000;
 export const buildHandler = (
   adminOptions: AdminBroOptions,
   options: BuildHandlerOptions,
+  customFunctionPath?: string,
 ): BuildHandlerReturn => {
   let admin: AdminBro;
 
-  let rootPath: string;
   let loginPath: string;
   let logoutPath: string;
-
-  const domain = process.env.FUNCTIONS_EMULATOR
-    ? `${process.env.GCLOUD_PROJECT}/${options.region}/${process.env.FUNCTION_TARGET}`
-    : process.env.FUNCTION_TARGET;
+  let rootPath: string;
 
   return async (req, res): Promise<void> => {
     if (!admin) {
@@ -105,17 +107,20 @@ export const buildHandler = (
       }
 
       admin = new AdminBro(beforeResult || adminOptions);
-      ({ rootPath, loginPath, logoutPath } = admin.options);
+      // we have to store original values
+      ({ loginPath, logoutPath, rootPath } = admin.options);
 
-      admin.options.rootPath = `/${domain}${rootPath}`;
-      admin.options.loginPath = `/${domain}${loginPath}`;
-      admin.options.logoutPath = `/${domain}${logoutPath}`;
+      Object.assign(admin.options, computeRootPaths(admin.options, {
+        project: process.env.GCLOUD_PROJECT as string,
+        region: options.region,
+        target: process.env.FUNCTION_TARGET as string,
+        emulator: process.env.FUNCTIONS_EMULATOR,
+      }), customFunctionPath);
     }
 
     const { method, query } = req;
-    let path = req.originalUrl.replace(admin.options.rootPath, '');
-    if (!path.startsWith('/')) { path = `/${path}`; }
-    
+    const path = prepareComparePath(req.path, rootPath);
+
     const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies && cookies.__session;
 
@@ -199,7 +204,7 @@ export const buildHandler = (
     }
 
     const asset = AppAssets.find((r) => r.match(path));
-    if (asset) {
+    if (asset && !admin.options.assetsCDN) {
       res.status(200).sendFile(resolve(asset.src));
       return;
     }
