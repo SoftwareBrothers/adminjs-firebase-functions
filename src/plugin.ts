@@ -119,7 +119,7 @@ export const buildHandler = (
         region: options.region,
         target: process.env.FUNCTION_TARGET as string,
         emulator: process.env.FUNCTIONS_EMULATOR,
-      }), options.customFunctionPath);
+      }, options.customFunctionPath));
     }
 
     const { method, query } = req;
