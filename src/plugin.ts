@@ -1,60 +1,17 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Response } from 'firebase-functions';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Request } from 'firebase-functions/lib/providers/https';
-import AdminBro, { AdminBroOptions, CurrentAdmin } from 'admin-bro';
+import AdminBro, { AdminBroOptions } from 'admin-bro';
 import { resolve } from 'path';
 import { match } from 'path-to-regexp';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
+import { computeRootPaths } from './utils/compute-root-paths';
+import { prepareComparePath } from './utils/prepare-compare-path';
 
-import { AppRoutes, AppAssets } from './routes';
-import { parseFiles, cleanFiles, File } from './parse-files';
 
-/**
- * @alias BuildHandlerReturn
- *
- * @memberof module:@admin-bro/firebase-functions
- */
-export type BuildHandlerReturn = ((req: Request, resp: Response) => Promise<void>)
-
-/**
- * @alias BuildHandlerOptions
- *
- * @memberof module:@admin-bro/firebase-functions
- */
-export type BuildHandlerOptions = {
-  /** Region where function is deployed */
-  region: string;
-  /**
-   * Optional before `async` hook which can be used to initialize database.
-   * if it returns something it will be used as AdminBroOptions.
-   */
-  before?: () => Promise<AdminBroOptions | undefined | null> | AdminBroOptions | undefined | null;
-  /**
-   * custom authentication option. If given AdminBro will render login page
-   */
-  auth?: {
-    /**
-     * secret which is used to encrypt the session cookie
-     */
-    secret: string;
-    /**
-     * authenticate function
-     */
-    authenticate: (
-      email: string,
-      password: string
-    ) => Promise<CurrentAdmin | null> | CurrentAdmin | null;
-
-    /**
-     * For how long cookie session will be stored.
-     * Default to 900000 (15 minutes).
-     * In milliseconds.
-     */
-    maxAge?: number;
-  };
-}
+import { AppRoutes, AppAssets } from './utils/routes';
+import { parseFiles, cleanFiles, File } from './utils/parse-files';
+import { BuildHandlerOptions, BuildHandlerReturn } from './utils/build-handler-options';
 
 const DEFAULT_MAX_AGE = 900000;
 
@@ -89,13 +46,9 @@ export const buildHandler = (
 ): BuildHandlerReturn => {
   let admin: AdminBro;
 
-  let rootPath: string;
   let loginPath: string;
   let logoutPath: string;
-
-  const domain = process.env.FUNCTIONS_EMULATOR
-    ? `${process.env.GCLOUD_PROJECT}/${options.region}/${process.env.FUNCTION_TARGET}`
-    : process.env.FUNCTION_TARGET;
+  let rootPath: string;
 
   return async (req, res): Promise<void> => {
     if (!admin) {
@@ -105,17 +58,20 @@ export const buildHandler = (
       }
 
       admin = new AdminBro(beforeResult || adminOptions);
-      ({ rootPath, loginPath, logoutPath } = admin.options);
+      // we have to store original values
+      ({ loginPath, logoutPath, rootPath } = admin.options);
 
-      admin.options.rootPath = `/${domain}${rootPath}`;
-      admin.options.loginPath = `/${domain}${loginPath}`;
-      admin.options.logoutPath = `/${domain}${logoutPath}`;
+      Object.assign(admin.options, computeRootPaths(admin.options, {
+        project: process.env.GCLOUD_PROJECT as string,
+        region: options.region,
+        target: process.env.FUNCTION_TARGET as string,
+        emulator: process.env.FUNCTIONS_EMULATOR,
+      }, options.customFunctionPath));
     }
 
     const { method, query } = req;
-    let path = req.originalUrl.replace(admin.options.rootPath, '');
-    if (!path.startsWith('/')) { path = `/${path}`; }
-    
+    const path = prepareComparePath(req.path, rootPath, options.customFunctionPath);
+
     const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies && cookies.__session;
 
@@ -125,7 +81,7 @@ export const buildHandler = (
 
     if (options.auth) {
       const matchLogin = match(loginPath);
-      if (matchLogin(req.path)) {
+      if (matchLogin(path)) {
         if (method === 'GET') {
           res.send(await admin.renderLogin({
             action: admin.options.loginPath,
@@ -151,7 +107,7 @@ export const buildHandler = (
       }
 
       const matchLogout = match(logoutPath);
-      if (matchLogout(req.path)) {
+      if (matchLogout(path)) {
         res.cookie('__session', '');
         res.redirect(admin.options.loginPath);
         return;
@@ -199,7 +155,7 @@ export const buildHandler = (
     }
 
     const asset = AppAssets.find((r) => r.match(path));
-    if (asset) {
+    if (asset && !admin.options.assetsCDN) {
       res.status(200).sendFile(resolve(asset.src));
       return;
     }

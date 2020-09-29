@@ -29,6 +29,7 @@ module.exports = {
     "import/extensions": 'off',
     "import/prefer-default-export": 'off',
     "no-underscore-dangle": 'off',
+    "import/no-extraneous-dependencies": 'off'
   },
   overrides: [
     {
@@ -36,6 +37,7 @@ module.exports = {
           '*.spec.ts',
       ],
       rules: {
+        'mocha/no-mocha-arrows': 'off',
         'no-unused-expressions': 'off',
         'func-names': 'off',
         'prefer-arrow-callback': 'off',
