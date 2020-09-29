@@ -57,6 +57,11 @@ export type BuildHandlerOptions = {
      */
     maxAge?: number;
   };
+
+  /**
+   * Adjustment path when us use a proxy
+   */
+  customFunctionPath?: string;
 }
 
 const DEFAULT_MAX_AGE = 900000;
@@ -91,7 +96,6 @@ const DEFAULT_MAX_AGE = 900000;
 export const buildHandler = (
   adminOptions: AdminBroOptions,
   options: BuildHandlerOptions,
-  customFunctionPath?: string,
 ): BuildHandlerReturn => {
   let admin: AdminBro;
 
@@ -115,11 +119,11 @@ export const buildHandler = (
         region: options.region,
         target: process.env.FUNCTION_TARGET as string,
         emulator: process.env.FUNCTIONS_EMULATOR,
-      }), customFunctionPath);
+      }), options.customFunctionPath);
     }
 
     const { method, query } = req;
-    const path = prepareComparePath(req.path, rootPath, customFunctionPath);
+    const path = prepareComparePath(req.path, rootPath, options.customFunctionPath);
 
     const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies && cookies.__session;

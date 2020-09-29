@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "yarn build --watch",
-    "check:all": "yarn lint && yarn test",
+    "check:all": "yarn lint && yarn test && yarn build",
     "lint": "eslint './src/**/*.ts'",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "release": "semantic-release"
