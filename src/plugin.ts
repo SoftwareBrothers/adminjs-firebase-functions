@@ -134,7 +134,7 @@ export const buildHandler = (
 
     if (options.auth) {
       const matchLogin = match(loginPath);
-      if (matchLogin(req.path)) {
+      if (matchLogin(path)) {
         if (method === 'GET') {
           res.send(await admin.renderLogin({
             action: admin.options.loginPath,
@@ -160,7 +160,7 @@ export const buildHandler = (
       }
 
       const matchLogout = match(logoutPath);
-      if (matchLogout(req.path)) {
+      if (matchLogout(path)) {
         res.cookie('__session', '');
         res.redirect(admin.options.loginPath);
         return;
