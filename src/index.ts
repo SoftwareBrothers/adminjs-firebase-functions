@@ -1,3 +1,3 @@
-export * from './parse-files';
+export * from './utils/parse-files';
 export * from './plugin';
-export * from './routes';
+export * from './utils/routes';
