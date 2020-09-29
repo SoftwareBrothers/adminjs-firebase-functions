@@ -119,7 +119,7 @@ export const buildHandler = (
     }
 
     const { method, query } = req;
-    const path = prepareComparePath(req.path, rootPath);
+    const path = prepareComparePath(req.path, rootPath, customFunctionPath);
 
     const cookies = cookie.parse(req.headers.cookie || '');
     const token = cookies && cookies.__session;

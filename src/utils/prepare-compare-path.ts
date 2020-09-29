@@ -15,12 +15,19 @@
  *
  * @param firebasePath
  * @param adminOriginalRootPath
+ * @param customFunctionPath
  */
 export const prepareComparePath = (
   firebasePath: string,
   adminOriginalRootPath: string,
+  customFunctionPath?: string,
 ): string => {
-  let parsedPath = firebasePath.replace(adminOriginalRootPath, '');
+  let parsedPath = firebasePath;
+  if (customFunctionPath) {
+    parsedPath = parsedPath.replace(customFunctionPath, '');
+  }
+  parsedPath = parsedPath.replace(adminOriginalRootPath, '');
+
   if (!parsedPath.startsWith('/')) { parsedPath = `/${parsedPath}`; }
   return parsedPath;
 };
