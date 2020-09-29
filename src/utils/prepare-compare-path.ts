@@ -11,11 +11,8 @@
  * So this part: `/api/resources/User/records/123/show` is what interest us.
  *
  * This function takes one and converts it to another.
- *
- *
- * @param firebasePath
- * @param adminOriginalRootPath
- * @param customFunctionPath
+
+ * @private
  */
 export const prepareComparePath = (
   firebasePath: string,

@@ -35,6 +35,7 @@ const joinPaths = (...paths: Array<string>): string => {
  * hosted.
  *
  * @param {AdminBroOptions} options       options will can be mutated
+ * @private
  */
 export const computeRootPaths = (
   options: AdminPathOptions,

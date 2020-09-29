@@ -1,8 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Response } from 'firebase-functions';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Request } from 'firebase-functions/lib/providers/https';
-import AdminBro, { AdminBroOptions, CurrentAdmin } from 'admin-bro';
+import AdminBro, { AdminBroOptions } from 'admin-bro';
 import { resolve } from 'path';
 import { match } from 'path-to-regexp';
 import cookie from 'cookie';
@@ -13,56 +11,7 @@ import { prepareComparePath } from './utils/prepare-compare-path';
 
 import { AppRoutes, AppAssets } from './utils/routes';
 import { parseFiles, cleanFiles, File } from './utils/parse-files';
-
-/**
- * @alias BuildHandlerReturn
- *
- * @memberof module:@admin-bro/firebase-functions
- */
-export type BuildHandlerReturn = ((req: Request, resp: Response) => Promise<void>)
-
-/**
- * @alias BuildHandlerOptions
- *
- * @memberof module:@admin-bro/firebase-functions
- */
-export type BuildHandlerOptions = {
-  /** Region where function is deployed */
-  region: string;
-  /**
-   * Optional before `async` hook which can be used to initialize database.
-   * if it returns something it will be used as AdminBroOptions.
-   */
-  before?: () => Promise<AdminBroOptions | undefined | null> | AdminBroOptions | undefined | null;
-  /**
-   * custom authentication option. If given AdminBro will render login page
-   */
-  auth?: {
-    /**
-     * secret which is used to encrypt the session cookie
-     */
-    secret: string;
-    /**
-     * authenticate function
-     */
-    authenticate: (
-      email: string,
-      password: string
-    ) => Promise<CurrentAdmin | null> | CurrentAdmin | null;
-
-    /**
-     * For how long cookie session will be stored.
-     * Default to 900000 (15 minutes).
-     * In milliseconds.
-     */
-    maxAge?: number;
-  };
-
-  /**
-   * Adjustment path when us use a proxy
-   */
-  customFunctionPath?: string;
-}
+import { BuildHandlerOptions, BuildHandlerReturn } from './utils/build-handler-options';
 
 const DEFAULT_MAX_AGE = 900000;
 
@@ -87,8 +36,6 @@ const DEFAULT_MAX_AGE = 900000;
  *                                              AdminBro instance
  * @param  {BuildHandlerOptions} options        custom options for @admin-bro/firebase-functions
  *                                              adapter
- * @param {string} customFunctionPath           "adjustment" path when you proxy domain to a created
- *                                              function
  * @return {BuildHandlerReturn}                 function which can be passed to firebase
  * @function
  * @memberof module:@admin-bro/firebase-functions
