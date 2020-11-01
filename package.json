@@ -27,10 +27,10 @@
     "path-to-regexp": "^6.1.0"
   },
   "peerDependencies": {
-    "admin-bro": ">=3.2.0"
+    "admin-bro": ">=3.3.1"
   },
   "devDependencies": {
-    "admin-bro": ">=3.2.0",
+    "admin-bro": ">=3.3.1",
     "@types/busboy": "^0.2.3",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
