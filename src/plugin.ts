@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 // eslint-disable-next-line import/no-extraneous-dependencies
-import AdminBro, { AdminBroOptions } from 'admin-bro';
+import AdminJS, { AdminJSOptions } from 'adminjs';
 import { resolve } from 'path';
 import { match } from 'path-to-regexp';
 import cookie from 'cookie';
@@ -22,7 +22,7 @@ const DEFAULT_MAX_AGE = 900000;
  *
  * ```javascript
  * const functions = require('firebase-functions')
- * const { buildHandler } = require('@admin-bro/firebase-functions')
+ * const { buildHandler } = require('@adminjs/firebase-functions')
  *
  * const adminOptions = {...}
  * const region = '...'
@@ -32,19 +32,19 @@ const DEFAULT_MAX_AGE = 900000;
  * ```
  *
  * @alias buildHandler
- * @param  {AdminBroOptions} adminOptions       options which are used to initialize
- *                                              AdminBro instance
- * @param  {BuildHandlerOptions} options        custom options for @admin-bro/firebase-functions
+ * @param  {AdminJSOptions} adminOptions       options which are used to initialize
+ *                                              AdminJS instance
+ * @param  {BuildHandlerOptions} options        custom options for @adminjs/firebase-functions
  *                                              adapter
  * @return {BuildHandlerReturn}                 function which can be passed to firebase
  * @function
- * @memberof module:@admin-bro/firebase-functions
+ * @memberof module:@adminjs/firebase-functions
 */
 export const buildHandler = (
-  adminOptions: AdminBroOptions,
+  adminOptions: AdminJSOptions,
   options: BuildHandlerOptions,
 ): BuildHandlerReturn => {
-  let admin: AdminBro;
+  let admin: AdminJS;
 
   let loginPath: string;
   let logoutPath: string;
@@ -52,12 +52,12 @@ export const buildHandler = (
 
   return async (req, res): Promise<void> => {
     if (!admin) {
-      let beforeResult: AdminBroOptions | null | undefined = null;
+      let beforeResult: AdminJSOptions | null | undefined = null;
       if (options.before) {
         beforeResult = await options.before();
       }
 
-      admin = new AdminBro(beforeResult || adminOptions);
+      admin = new AdminJS(beforeResult || adminOptions);
       // we have to store original values
       ({ loginPath, logoutPath, rootPath } = admin.options);
 

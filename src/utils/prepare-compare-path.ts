@@ -7,7 +7,7 @@
  * ```
  *
  * But when we compare path against particular route, we are comparing just the part after the
- * {@link AdminBroOptions.rootPath} defined by the user.
+ * {@link AdminJSOptions.rootPath} defined by the user.
  * So this part: `/api/resources/User/records/123/show` is what interest us.
  *
  * This function takes one and converts it to another.

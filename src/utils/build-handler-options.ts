@@ -1,18 +1,18 @@
 import { Response } from 'firebase-functions';
 import { Request } from 'firebase-functions/lib/providers/https';
-import { AdminBroOptions, CurrentAdmin } from 'admin-bro';
+import { AdminJSOptions, CurrentAdmin } from 'adminjs';
 
 /**
  * @alias BuildHandlerReturn
  *
- * @memberof module:@admin-bro/firebase-functions
+ * @memberof module:@adminjs/firebase-functions
  */
 
 export type BuildHandlerReturn = ((req: Request, resp: Response) => Promise<void>);
 /**
  * @alias BuildHandlerOptions
  *
- * @memberof module:@admin-bro/firebase-functions
+ * @memberof module:@adminjs/firebase-functions
  */
 
 export type BuildHandlerOptions = {
@@ -20,11 +20,11 @@ export type BuildHandlerOptions = {
   region: string;
   /**
    * Optional before `async` hook which can be used to initialize database.
-   * if it returns something it will be used as AdminBroOptions.
+   * if it returns something it will be used as AdminJSOptions.
    */
-  before?: () => Promise<AdminBroOptions | undefined | null> | AdminBroOptions | undefined | null;
+  before?: () => Promise<AdminJSOptions | undefined | null> | AdminJSOptions | undefined | null;
   /**
-   * custom authentication option. If given AdminBro will render login page
+   * custom authentication option. If given AdminJS will render login page
    */
   auth?: {
     /**
