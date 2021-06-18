@@ -27,10 +27,12 @@
     "path-to-regexp": "^6.1.0"
   },
   "peerDependencies": {
-    "adminjs": ">=3.3.1"
+    "adminjs": ">=5.0.0"
   },
   "devDependencies": {
-    "adminjs": ">=3.3.1",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@semantic-release/git": "^9.0.0",
     "@types/busboy": "^0.2.3",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
@@ -38,6 +40,7 @@
     "@types/sinon-chai": "^3.2.3",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
+    "adminjs": "^5.0.0",
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -45,17 +48,14 @@
     "eslint-plugin-mocha": "^6.3.0",
     "firebase-admin": "^8.9.2",
     "firebase-functions": "^3.3.0",
+    "husky": "^4.2.5",
     "mocha": "^7.1.1",
+    "semantic-release": "^17.0.7",
+    "semantic-release-jira-releases-sb": "^0.7.2",
+    "semantic-release-slack-bot": "^1.6.2",
     "sinon": "^9.0.1",
     "sinon-chai": "^3.5.0",
     "ts-node": "^8.8.1",
-    "typescript": "^3.8.3",
-    "semantic-release": "^17.0.7",
-    "semantic-release-jira-releases-sb": "^0.7.2",
-    "@semantic-release/git": "^9.0.0",
-    "semantic-release-slack-bot": "^1.6.2",
-    "husky": "^4.2.5",
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4"
+    "typescript": "^3.8.3"
   }
 }
