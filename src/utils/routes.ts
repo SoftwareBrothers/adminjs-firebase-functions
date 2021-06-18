@@ -1,4 +1,4 @@
-import { Router } from 'admin-bro';
+import { Router } from 'adminjs';
 import { match } from 'path-to-regexp';
 
 const { routes, assets } = Router;

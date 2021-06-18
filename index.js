@@ -1,5 +1,5 @@
 /**
- * @module @admin-bro/firebase-functions
+ * @module @adminjs/firebase-functions
  * @subcategory Plugins
  * @section modules
  *

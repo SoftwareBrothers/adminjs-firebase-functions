@@ -10,7 +10,7 @@ import {
 describe('routeMatch', () => {
   let env: ComputeRootPathEnv = {
     emulator: 'true',
-    project: 'admin-bro-app',
+    project: 'adminjs-app',
     region: 'us-east-1',
     target: 'admin',
   };
@@ -20,7 +20,7 @@ describe('routeMatch', () => {
   beforeEach(() => {
     env = {
       emulator: 'true',
-      project: 'admin-bro-app',
+      project: 'adminjs-app',
       region: 'us-east-1',
       target: 'admin',
     };

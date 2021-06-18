@@ -5,6 +5,7 @@
     "strictPropertyInitialization": false,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
+    "skipLibCheck": true,
     "declarationDir": "types",
     "declaration": true,
     "noImplicitThis": true,

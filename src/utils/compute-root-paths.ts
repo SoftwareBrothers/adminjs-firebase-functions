@@ -1,5 +1,5 @@
 import path from 'path';
-import { AdminBroOptionsWithDefault, Router } from 'admin-bro';
+import { AdminJSOptionsWithDefault, Router } from 'adminjs';
 /* eslint-disable no-param-reassign */
 
 export type ComputeRootPathEnv = {
@@ -15,7 +15,7 @@ export type ComputedPaths = {
   logoutPath: string;
 }
 
-export type AdminPathOptions = Pick<AdminBroOptionsWithDefault, 'loginPath' | 'logoutPath' | 'rootPath'>
+export type AdminPathOptions = Pick<AdminJSOptionsWithDefault, 'loginPath' | 'logoutPath' | 'rootPath'>
 
 export const getLocalhostPathForEnv = (env: ComputeRootPathEnv): string => (
   `${env.project}/${env.region}/${env.target}`
@@ -31,10 +31,10 @@ const joinPaths = (...paths: Array<string>): string => {
 };
 
 /**
- * Function which takes admin bro options and fix paths depending on the environment where it is
+ * Function which takes AdminJS options and fix paths depending on the environment where it is
  * hosted.
  *
- * @param {AdminBroOptions} options       options will can be mutated
+ * @param {AdminJSOptions} options       options will can be mutated
  * @private
  */
 export const computeRootPaths = (
