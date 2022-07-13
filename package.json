@@ -1,6 +1,6 @@
 {
   "name": "@adminjs/firebase-functions",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Firebase plugin for AdminJS",
   "main": "index.js",
   "types": "index.d.ts",
